@@ -285,6 +285,12 @@ body {
 
 .phase-bar::-webkit-scrollbar { display: none; }
 
+.phase-sep-dot {
+  color: var(--muted);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
 .phase-pill {
   display: flex;
   align-items: center;
@@ -686,7 +692,7 @@ body {
 <!-- CONFIG SCREEN -->
 <div id="config-screen">
   <div class="config-card">
-    <div class="config-brand">Clerra</div>
+    <div class="config-brand">Clerra &mdash; Décision de carrière</div>
 
     <div class="config-headline">Tu en as marre.<br>Tu sais que ça ne peut pas continuer comme ça.<br>Mais tu ne fais rien.</div>
 
@@ -700,10 +706,10 @@ body {
     </div>
 
     <div class="config-promise">
-      En 30 minutes, tu identifies ce qui te bloque vraiment — et tu repars avec une décision claire.
+      En 30 minutes, tu identifies ce qui te bloque — et tu formules une décision.
     </div>
 
-    <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-top:14px;margin-bottom:16px;">Pas de conseils. Juste une décision.</div>
+    <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-top:14px;margin-bottom:16px;">Pas de conseils. Une décision.</div>
 
 
     <div class="config-divider"></div>
@@ -753,11 +759,11 @@ body {
 
   <!-- PHASE BAR -->
   <div class="phase-bar">
-    <div class="phase-pill active" id="pill-T"><div class="dot"></div>Trigger</div>
-    <div class="phase-pill" id="pill-R"><div class="dot"></div>Reality</div>
-    <div class="phase-pill" id="pill-U"><div class="dot"></div>Unblock</div>
-    <div class="phase-pill" id="pill-S"><div class="dot"></div>Strategy</div>
-    <div class="phase-pill" id="pill-A"><div class="dot"></div>Take Action</div>
+    <div class="phase-pill" id="pill-T"><div class="dot"></div>Comprendre</div>
+    <div class="phase-sep-dot">—</div>
+    <div class="phase-pill" id="pill-R"><div class="dot"></div>Clarifier</div>
+    <div class="phase-sep-dot">—</div>
+    <div class="phase-pill" id="pill-A"><div class="dot"></div>Décider</div>
   </div>
 
   <!-- MESSAGES -->
@@ -935,7 +941,7 @@ function launchChat(isResume) {
     addClerraMessage(`Content(e) de te retrouver${CLIENT_NAME !== 'toi' ? ', ' + CLIENT_NAME : ''}. On reprend là où on s'était arrêté(e)s — phase ${sessionState.phase}. Tu veux continuer ?`);
   } else {
     addProtocolBadge();
-    addClerraMessage(`${CLIENT_NAME !== 'toi' ? CLIENT_NAME + ', ' : ''}je t'écoute — pas de jugement, pas de pression.\n\nPas besoin de tout expliquer parfaitement. Dis-moi juste ce qui tourne dans ta tête en ce moment. Ce qui t'amène ici.\n\nOn commence par là.`);
+    addClerraMessage(`${CLIENT_NAME !== 'toi' ? CLIENT_NAME + ', d' : 'D'}is-moi simplement ce qui se passe.\n\nQu'est-ce qui t'amène à hésiter aujourd'hui ?`);
   }
   saveToStorage();
 }
@@ -1374,15 +1380,11 @@ function addProtocolBadge() {
     <div style="background:#FAF6F0;border:1px solid #E8DDD0;border-radius:10px;padding:12px 14px;font-size:12px;color:#888;line-height:1.8;">
       <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7B2D42;margin-bottom:8px;">Protocole T.R.U.S.T. — 5 étapes</div>
       <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
-        <span style="background:#7B2D42;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">1 · Trigger</span>
+        <span style="background:#7B2D42;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:700;">Comprendre</span>
         <span style="color:#C4748A;">›</span>
-        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">2 · Reality</span>
+        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">Clarifier</span>
         <span style="color:#C4748A;">›</span>
-        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">3 · Unblock</span>
-        <span style="color:#C4748A;">›</span>
-        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">4 · Strategy</span>
-        <span style="color:#C4748A;">›</span>
-        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">5 · Décision</span>
+        <span style="border:1px solid #E8DDD0;border-radius:4px;padding:2px 8px;font-size:11px;">Décider</span>
       </div>
       <div style="margin-top:8px;font-style:italic;">Pas un chatbot. Un protocole de décision.</div>
     </div>`;
@@ -1436,11 +1438,11 @@ function showFinalScreen(update, rawCoachText) {
 
   const implHtml = implications.length
     ? implications.map(i => `<div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;"><span style="color:#7B2D42;flex-shrink:0;">›</span><span>${escHtml(i)}</span></div>`).join('')
-    : '<div style="color:#888;font-size:13px;">À compléter avec Clerra</div>';
+    : '<div style="color:#888;font-size:13px;">À compléter avec Clerra.</div>';
 
   const pasHtml = prochainPas.length
     ? prochainPas.map(p => `<div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;"><span style="color:#7B2D42;flex-shrink:0;">›</span><span>${escHtml(p)}</span></div>`).join('')
-    : '<div style="color:#888;font-size:13px;">À définir avec Clerra</div>';
+    : '<div style="color:#888;font-size:13px;">À définir avec Clerra.</div>';
 
   div.innerHTML = `
     <span class="msg-label">Clerra — Synthèse</span>
@@ -1665,20 +1667,23 @@ function hideTyping() {
 }
 
 function updatePhaseBar() {
-  const phases = [
-    { id: 'pill-T', name: 'Trigger' },
-    { id: 'pill-R', name: 'Reality' },
-    { id: 'pill-U', name: 'Unblock' },
-    { id: 'pill-S', name: 'Strategy' },
-    { id: 'pill-A', name: 'Take Action' }
-  ];
-  const currentIdx = phases.findIndex(p => p.name === sessionState.phase);
-  phases.forEach((p, i) => {
-    const el = document.getElementById(p.id);
+  // Mapping phases T.R.U.S.T. → 3 étapes visuelles
+  const phaseMap = {
+    'Trigger':     'pill-T',
+    'Reality':     'pill-T',
+    'Unblock':     'pill-R',
+    'Strategy':    'pill-R',
+    'Take Action': 'pill-A'
+  };
+  const order = ['pill-T', 'pill-R', 'pill-A'];
+  const activePill = phaseMap[sessionState.phase] || 'pill-T';
+  const activeIdx = order.indexOf(activePill);
+  order.forEach((id, i) => {
+    const el = document.getElementById(id);
     if (!el) return;
     el.classList.remove('active', 'done');
-    if (i < currentIdx) el.classList.add('done');
-    else if (i === currentIdx) el.classList.add('active');
+    if (i < activeIdx) el.classList.add('done');
+    else if (i === activeIdx) el.classList.add('active');
   });
 }
 
@@ -1740,7 +1745,7 @@ function autoResize(el) {
 function exportSession() {
   const lines = [];
   const d = new Date();
-  lines.push('CLERRA — Session T.R.U.S.T.');
+  lines.push('Clerra — Session T.R.U.S.T.');
   lines.push('Client : ' + CLIENT_NAME + '  |  Code : ' + SESSION_CODE);
   lines.push('Date : ' + d.toLocaleDateString('fr-FR'));
   lines.push('Phase atteinte : ' + sessionState.phase);
@@ -1828,7 +1833,7 @@ function startDemo() {
   const banner = document.createElement('div');
   banner.id = 'demo-banner';
   banner.style.cssText = 'background:#FFF3CD;border-bottom:1px solid #F0A500;padding:8px 16px;font-size:12px;color:#7A4F00;text-align:center;font-weight:700;flex-shrink:0;';
-  banner.textContent = '👁 MODE DÉMO — Conversation simulée. Aucune clé API requise.';
+  banner.textContent = '👁 Mode démo — Conversation simulée. Aucune clé API requise.';
   document.getElementById('chat-screen').insertBefore(banner, document.querySelector('.phase-bar'));
 
   updatePhaseBar();
