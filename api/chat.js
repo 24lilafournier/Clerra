@@ -1,5 +1,9 @@
 export default function handler(req, res) {
   res.status(200).json({
-    test: "API fonctionne"
+    content: [
+      {
+        text: "Test OK — Clerra fonctionne."
+      }
+    ]
   });
 }
